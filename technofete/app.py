@@ -21,7 +21,7 @@ db = firestore.client(dbapp)
 
 def checkcount(eventcount):
     eventpar = {"TreasureHeist": 0, "SyntaxSmackdown": 0, "CodeClueCrew": 0, "MechMania": 0, "OdetoCode": 0,
-                  "Civiathon": 0, "Circuitry": 0, "Techtales": 0, "ElectraQuiz": 0}
+                  "Civiathon": 0, "Circuitry": 0, "Techtales": 0, "ElectraQuiz": 0,"Posterpresentation":0,"Paperpresentation":0,"Technicalquiz":0,"CaseStudy":0}
     docs = db.collection("registration").stream()
     for doc in docs:
         dic = doc.to_dict()
