@@ -5,7 +5,7 @@ app = Flask(__name__, template_folder='templates')
 
 client = MongoClient("mongodb+srv://mohfaiz0504:9mddv4dW51npR3wb@cluster0.nmg1vs4.mongodb.net/technofete?retryWrites=true&w=majority")
 db = client["techreg"]
-collection = db["techregister"]
+collection = db["collection"]
 
 eventslot = {"TreasureHeist": 2, "SyntaxSmackdown": 2, "CodeClueCrew": 3, "MechMania": 3, "OdetoCode": 1,
              "Civiathon": 5, "Circuitry": 1, "Techtales": 2, "ElectraQuiz": 2,"Posterpresentation":2,"Paperpresentation":2,"Technicalquiz":2,"CaseStudy":2}
