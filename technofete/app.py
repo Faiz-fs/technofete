@@ -1,9 +1,11 @@
 from flask import Flask, render_template, redirect, request, url_for, flash, jsonify
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
+from pymongo import MongoClient
 
 app = Flask(__name__, template_folder='templates')
+
+client = MongoClient("mongodb+srv://mohfaiz0504:9mddv4dW51npR3wb@cluster0.nmg1vs4.mongodb.net/technofete?retryWrites=true&w=majority")
+db = client["event_registration_db"]
+collection = db["registrations"]
 
 eventslot = {"TreasureHeist": 2, "SyntaxSmackdown": 2, "CodeClueCrew": 3, "MechMania": 3, "OdetoCode": 1,
              "Civiathon": 5, "Circuitry": 1, "Techtales": 2, "ElectraQuiz": 2,"Posterpresentation":2,"Paperpresentation":2,"Technicalquiz":2,"CaseStudy":2}
@@ -14,49 +16,36 @@ event9 = ["SyntaxSmackdown", "MechMania", "OdetoCode", "TreasureHeist"]
 event2 = ["Circuitry", "CodeClueCrew"]
 event11 = ["Civiathon", "Techtales"]
 
-cred = credentials.Certificate("sdkconnect.json")
-app_options = {'projectId': 'technofete-e0554'}
-dbapp = firebase_admin.initialize_app(cred, options=app_options)
-db = firestore.client(dbapp)
-
 def checkcount(eventcount):
     eventpar = {"TreasureHeist": 0, "SyntaxSmackdown": 0, "CodeClueCrew": 0, "MechMania": 0, "OdetoCode": 0,
                   "Civiathon": 0, "Circuitry": 0, "Techtales": 0, "ElectraQuiz": 0,"Posterpresentation":0,"Paperpresentation":0,"Technicalquiz":0,"CaseStudy":0}
-    docs = db.collection("registration").stream()
+    docs = db.collection.find()
+    docs = db.collection.find()
     for doc in docs:
-        dic = doc.to_dict()
-        for i in dic["event"]:
-            eventpar[i]+=1
+        for event in doc["event"]:
+            eventpar[event] += 1
     for key in eventcount.keys():
-        if eventcount[key]==eventpar[key]:
+        if eventcount[key] == eventpar[key]:
             return "Registration Closed"
     return "Registration Opened"
 
-
 def check(Dict):
-    docs = db.collection("registration").stream()
+    docs = db.collection.find()
     for doc in docs:
-        if doc.id in Dict.keys():
-            dic = doc.to_dict()
-            for e in dic["event"]:
-                print(e, Dict[doc.id]["event"])
-                if e in event9 and Dict[doc.id]["event"][0] in event9:
-                    # print(e)
+        if doc["_id"] in Dict.keys():
+            for event in doc["event"]:
+                if event in event9 and Dict[doc["_id"]]["event"][0] in event9:
                     return False
-                if e in event2 and Dict[doc.id]["event"][0] in event2:
+                if event in event2 and Dict[doc["_id"]]["event"][0] in event2:
                     return False
-                if e in event11 and Dict[doc.id]["event"][0] in event11:
+                if event in event11 and Dict[doc["_id"]]["event"][0] in event11:
                     return False
             else:
-                db.collection("registration").document(doc.id).update(
-                    {"event": firestore.ArrayUnion(Dict[doc.id]["event"])})
-                del (Dict[doc.id])
-
+                db.collection.update_one({"_id": doc["_id"]}, {"$addToSet": {"event": {"$each": Dict[doc["_id"]]["event"]}}})
+                del Dict[doc["_id"]]
     return Dict
 
-
 def checkandupdate(rdata):
-    # docs = db.collection("registration").stream()
     Dict = {}
     for d in rdata:
         result = d.split(" ")
@@ -65,7 +54,7 @@ def checkandupdate(rdata):
     Dict = check(Dict)
     if Dict:
         for key in Dict.keys():
-            db.collection("registration").document(key).set(Dict[key])
+            db.collection.insert_one(Dict[key])
         return "Successful"
     else:
         return "Event clash"
