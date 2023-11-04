@@ -14,7 +14,7 @@ event9 = ["SyntaxSmackdown", "MechMania", "OdetoCode", "TreasureHeist"]
 event2 = ["Circuitry", "CodeClueCrew"]
 event11 = ["Civiathon", "Techtales"]
 
-cred = credentials.Certificate("sdkconnect.json")
+cred = credentials.Certificate("./sdkconnect.json")
 app_options = {'projectId': 'technofete-e0554'}
 dbapp = firebase_admin.initialize_app(cred, options=app_options)
 db = firestore.client(dbapp)
