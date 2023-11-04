@@ -2,3 +2,4 @@ Flask
 Gunicorn
 firebase-admin
 firestore
+pymongo
