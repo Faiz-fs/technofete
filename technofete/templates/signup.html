@@ -53,12 +53,14 @@
             for (let i = 1; i <= n; i++) {
                 var mail=document.getElementById("Email".concat(i)).value;
                 var result = ""
-                if(mail.includes("@mcet.in")){
-                    var rollno=mail.replace("@mcet.in","");
+                const regex = /\d+\w+\d+/
+                var rollno=mail.replace("@mcet.in","")
+                if(mail.includes("@mcet.in") && regex.test(rollno)){
+                    //var rollno=mail.replace("@mcet.in","");
                     result+=rollno+" ";
                     result += document.getElementById("Name".concat(i)).value.replace(/\s+/g,"") + " ";
                     result+= mail + " ";
-                    result += document.getElementById("Phone".concat(i)).value + " ";
+                    result += document.getElementById("Phone".concat(i)).value.replace(/\s+/g,"") + " ";
                     result +=event;
                     lst.push(result);
                 }
@@ -81,7 +83,7 @@
                 .then(data => {
                     console.log(data,found);
                     if(found==0  && data["message"]=="Successful"){
-                        alert(data["message"]+"Registered");alert(data["message"])
+                        alert(data["message"]+"Registered");//alert(data["message"])
                         window.location.href="https://technofete.onrender.com/";
                     }
                     else if(found==1){
