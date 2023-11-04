@@ -57,9 +57,9 @@
                 var rollno=mail.replace("@mcet.in","")
                 if(mail.includes("@mcet.in") && regex.test(rollno)){
                     //var rollno=mail.replace("@mcet.in","");
-                    result+=rollno+" ";
+                    result+=rollno.replace(/\s+/g,"")+" ";
                     result += document.getElementById("Name".concat(i)).value.replace(/\s+/g,"") + " ";
-                    result+= mail + " ";
+                    result+= mail.replace(/\s+/g,"") + " ";
                     result += document.getElementById("Phone".concat(i)).value.replace(/\s+/g,"") + " ";
                     result +=event;
                     lst.push(result);
