@@ -2,7 +2,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
-cred = credentials.Certificate("./sdkconnect.json")
+cred = credentials.Certificate("sdkconnect.json")
 app_options = {'projectId': 'technofete-e0554'}
 #default_app = firebase_admin.initialize_app(cred)
 app = firebase_admin.initialize_app(cred, options=app_options)
