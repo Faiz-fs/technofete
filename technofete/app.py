@@ -6,9 +6,9 @@ from firebase_admin import firestore
 app = Flask(__name__, template_folder='templates')
 
 eventslot = {"TreasureHeist": 2, "SyntaxSmackdown": 2, "CodeClueCrew": 3, "MechMania": 3, "OdetoCode": 1,
-             "Civiathon": 5, "Circuitry": 1, "Techtales": 2, "ElectraQuiz": 2}
+             "Civiathon": 5, "Circuitry": 1, "Techtales": 2, "ElectraQuiz": 2,"Posterpresentation":2,"Paperpresentation":2,"Technicalquiz":1,"CaseStudy":1}
 eventcount = {"TreasureHeist": 60, "SyntaxSmackdown": 30, "CodeClueCrew": 60, "MechMania": 60, "OdetoCode": 100,
-              "Civiathon": 250, "Circuitry": 80, "Techtales": 50, "ElectraQuiz": 40}
+              "Civiathon": 250, "Circuitry": 80, "Techtales": 50, "ElectraQuiz": 40,"Posterpresentation":1000,"Paperpresentation":1000,"Technicalquiz":1000,"CaseStudy":1000}
 
 event9 = ["SyntaxSmackdown", "MechMania", "OdetoCode", "TreasureHeist"]
 event2 = ["Circuitry", "CodeClueCrew"]
