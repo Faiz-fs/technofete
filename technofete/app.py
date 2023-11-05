@@ -15,13 +15,12 @@ eventcount = {"TreasureHeist": "close", "SyntaxSmackdown": 10, "CodeClueCrew": "
 event9 = ["SyntaxSmackdown", "MechMania", "OdetoCode", "TreasureHeist"]
 event2 = ["Circuitry", "CodeClueCrew"]
 event11 = ["Civiathon", "Techtales"]
-
-
+eventpar = {"TreasureHeist": 0, "SyntaxSmackdown": 0, "CodeClueCrew": 0, "MechMania": 0, "OdetoCode": 0,
+                  "Civiathon": 0, "Circuitry": 0, "Techtales": 0, "ElectraQuiz": 0,"Posterpresentation":0,"Paperpresentation":0,"Technicalquiz":0,"CaseStudy":0}
 
     
-def checkcount(eventcount,aid):
-    eventpar = {"TreasureHeist": 0, "SyntaxSmackdown": 0, "CodeClueCrew": 0, "MechMania": 0, "OdetoCode": 0,
-                  "Civiathon": 0, "Circuitry": 0, "Techtales": 0, "ElectraQuiz": 0,"Posterpresentation":0,"Paperpresentation":0,"Technicalquiz":0,"CaseStudy":0}
+def checkcount(eventcount,aid,eventpar):
+   
     docs = db.collection.find()
     docs = db.collection.find()
     for doc in docs:
@@ -83,7 +82,7 @@ def ignite():
 @app.route('/signup')
 def signup():
     aid = request.args.get('id', default='', type=str)
-    status=checkcount(eventcount,aid)
+    status=checkcount(eventcount,aid,eventpar)
     print(status)
     if status=="Registration Closed":
         return render_template("association.html",data=status)
