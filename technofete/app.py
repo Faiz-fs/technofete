@@ -9,7 +9,7 @@ collection = db["collection"]
 
 eventslot = {"TreasureHeist": 2, "SyntaxSmackdown": 2, "CodeClueCrew": 3, "MechMania": 3, "OdetoCode": 1,
              "Civiathon": 5, "Circuitry": 1, "Techtales": 2, "ElectraQuiz": 2,"Posterpresentation":2,"Paperpresentation":2,"Technicalquiz":2,"CaseStudy":2}
-eventcount = {"TreasureHeist": "close", "SyntaxSmackdown": 10, "CodeClueCrew": "close", "MechMania": "close", "OdetoCode": 40,
+eventcount = {"TreasureHeist": "close", "SyntaxSmackdown": 10, "CodeClueCrew": "close", "MechMania": "close", "OdetoCode": "close",
               "Civiathon": 250, "Circuitry": 25, "Techtales": 50, "ElectraQuiz": "close","Posterpresentation":1000,"Paperpresentation":1000,"Technicalquiz":1000,"CaseStudy":1000}
 
 event9 = ["SyntaxSmackdown", "MechMania", "OdetoCode", "TreasureHeist"]
