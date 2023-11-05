@@ -16,7 +16,10 @@ event9 = ["SyntaxSmackdown", "MechMania", "OdetoCode", "TreasureHeist"]
 event2 = ["Circuitry", "CodeClueCrew"]
 event11 = ["Civiathon", "Techtales"]
 
-def checkcount(eventcount):
+
+
+    
+def checkcount(eventcount,aid):
     eventpar = {"TreasureHeist": 0, "SyntaxSmackdown": 0, "CodeClueCrew": 0, "MechMania": 0, "OdetoCode": 0,
                   "Civiathon": 0, "Circuitry": 0, "Techtales": 0, "ElectraQuiz": 0,"Posterpresentation":0,"Paperpresentation":0,"Technicalquiz":0,"CaseStudy":0}
     docs = db.collection.find()
@@ -25,7 +28,9 @@ def checkcount(eventcount):
         for event in doc["event"]:
             eventpar[event] += 1
     for key in eventcount.keys():
-        if eventcount[key] == eventpar[key] or eventcount[key]=="close":
+        if key==aid and eventcount[key]=="close":
+            return "Registration Closed"
+        if eventcount[key] == eventpar[key]:
             return "Registration Closed"
     return "Registration Opened"
 
@@ -78,7 +83,7 @@ def ignite():
 @app.route('/signup')
 def signup():
     aid = request.args.get('id', default='', type=str)
-    status=checkcount(eventcount)
+    status=checkcount(eventcount,aid)
     print(status)
     if status=="Registration Closed":
         return render_template("association.html",data=status)
